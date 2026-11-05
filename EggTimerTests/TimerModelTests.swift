@@ -103,3 +103,36 @@ struct TimerModelTests {
         #expect(m.phase == .stopped)
     }
 }
+
+@MainActor
+struct AlarmToneTests {
+    @Test func silencingStopsTheSound() {
+        let clock = FakeClock()
+        var silenced = 0
+        let m = TimerModel(now: { clock.date }, silence: { silenced += 1 }, autoTick: false)
+        m.pressSecond()
+        m.pressStartStop()
+        clock.advance(2); m.tick()
+        #expect(m.phase == .alarming)
+        m.pressStartStop()
+        #expect(silenced == 1)
+    }
+
+    @Test func everyToneLoads() {
+        let player = AlarmPlayer()
+        let tones = AlarmPlayer.generatedTones + AlarmPlayer.systemTones
+        #expect(tones.count > AlarmPlayer.generatedTones.count)
+        for tone in tones {
+            #expect(player.sound(for: tone.id) != nil, "\(tone.name) failed to load")
+        }
+        #expect(AlarmPlayer.systemTones.contains { $0.id == AlarmPlayer.defaultTone })
+    }
+
+    @Test func generatedTonesFitInOneBeepInterval() throws {
+        let player = AlarmPlayer()
+        for tone in AlarmPlayer.generatedTones {
+            let duration = try #require(player.sound(for: tone.id)).duration
+            #expect(duration > 0.2 && duration < 1.0, "\(tone.name) is \(duration)s")
+        }
+    }
+}

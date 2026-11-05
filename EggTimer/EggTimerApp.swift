@@ -3,8 +3,16 @@ import SwiftUI
 
 @main
 struct EggTimerApp: App {
-    @State private var model = TimerModel(beep: { NSSound(named: "Glass")?.play() })
+    private let player: AlarmPlayer
+    @State private var model: TimerModel
     @AppStorage("floatOnTop") private var floatOnTop = false
+
+    init() {
+        let player = AlarmPlayer()
+        self.player = player
+        _model = State(initialValue: TimerModel(beep: { player.alarmBeep() },
+                                                silence: { player.stop() }))
+    }
 
     var body: some Scene {
         Window("Egg Timer", id: "main") {
@@ -16,6 +24,10 @@ struct EggTimerApp: App {
                 Toggle("Always on Top", isOn: $floatOnTop)
                     .keyboardShortcut("t", modifiers: [.command, .option])
             }
+        }
+
+        Settings {
+            SettingsView(player: player)
         }
     }
 }

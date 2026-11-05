@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0794D6FE1B0FDF4782B69A7A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7792E2D978572F71D73EF475 /* ContentView.swift */; };
+		4AC418FDE9F96CBF4B3E90D8 /* AlarmPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA043E203D5681CFC13AE0E /* AlarmPlayer.swift */; };
 		937E7AD8D638BDDC190CF004 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B9216681AF3E8EB4C7E7 /* TimerModel.swift */; };
 		D03EAB494E0DEF87020F80F2 /* EggTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7862883E0A966DBE41F71122 /* EggTimerApp.swift */; };
 		D3289D3152257612C50C6EE3 /* TimerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC484B431CF713BC6A65E37E /* TimerModelTests.swift */; };
+		D7CCA33CEFC2CFB845F6A7A2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E64BBE1F20927242000675 /* SettingsView.swift */; };
 		E4FC88D60016A6651B615E0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41C2A0FA54490B4A19AA3CFB /* Assets.xcassets */; };
 		E6E3AA2C2EF8E5C9480F3F31 /* WindowLevelSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC97CF4CDA1F18D61CC00163 /* WindowLevelSetter.swift */; };
 /* End PBXBuildFile section */
@@ -29,8 +31,10 @@
 		1A23B9216681AF3E8EB4C7E7 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		21E5381AFB37162A091BF120 /* EggTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EggTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C2A0FA54490B4A19AA3CFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		55E64BBE1F20927242000675 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7792E2D978572F71D73EF475 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7862883E0A966DBE41F71122 /* EggTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EggTimerApp.swift; sourceTree = "<group>"; };
+		8FA043E203D5681CFC13AE0E /* AlarmPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmPlayer.swift; sourceTree = "<group>"; };
 		9A98E27338476A7B21B82575 /* EggTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EggTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC97CF4CDA1F18D61CC00163 /* WindowLevelSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLevelSetter.swift; sourceTree = "<group>"; };
 		EC484B431CF713BC6A65E37E /* TimerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModelTests.swift; sourceTree = "<group>"; };
@@ -48,9 +52,11 @@
 		171DE25F4EB085A42956D61F /* EggTimer */ = {
 			isa = PBXGroup;
 			children = (
+				8FA043E203D5681CFC13AE0E /* AlarmPlayer.swift */,
 				41C2A0FA54490B4A19AA3CFB /* Assets.xcassets */,
 				7792E2D978572F71D73EF475 /* ContentView.swift */,
 				7862883E0A966DBE41F71122 /* EggTimerApp.swift */,
+				55E64BBE1F20927242000675 /* SettingsView.swift */,
 				1A23B9216681AF3E8EB4C7E7 /* TimerModel.swift */,
 				DC97CF4CDA1F18D61CC00163 /* WindowLevelSetter.swift */,
 			);
@@ -169,8 +175,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AC418FDE9F96CBF4B3E90D8 /* AlarmPlayer.swift in Sources */,
 				0794D6FE1B0FDF4782B69A7A /* ContentView.swift in Sources */,
 				D03EAB494E0DEF87020F80F2 /* EggTimerApp.swift in Sources */,
+				D7CCA33CEFC2CFB845F6A7A2 /* SettingsView.swift in Sources */,
 				937E7AD8D638BDDC190CF004 /* TimerModel.swift in Sources */,
 				E6E3AA2C2EF8E5C9480F3F31 /* WindowLevelSetter.swift in Sources */,
 			);

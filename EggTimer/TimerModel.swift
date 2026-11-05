@@ -31,13 +31,16 @@ final class TimerModel {
 
     private let now: () -> Date
     private let beep: () -> Void
+    private let silence: () -> Void
     private let autoTick: Bool
 
     init(now: @escaping () -> Date = Date.init,
          beep: @escaping () -> Void = {},
+         silence: @escaping () -> Void = {},
          autoTick: Bool = true) {
         self.now = now
         self.beep = beep
+        self.silence = silence
         self.autoTick = autoTick
     }
 
@@ -132,6 +135,7 @@ final class TimerModel {
         flashOn = false
         seconds = setSeconds
         stopRefresh()
+        silence()
         return true
     }
 

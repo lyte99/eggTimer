@@ -6,6 +6,7 @@ A tiny native macOS kitchen timer (SwiftUI), modeled on the classic M / S / ST-S
 - **Start / Stop** — counts down from the set time, or up from 00:00 (`Space`)
 - **Clear** — reset to 00:00 (`Esc`)
 - At zero it beeps until any button is pressed, then recalls the last set time.
+- **Settings (⌘,)** — pick the alarm tone: Classic Beep, Digital Chirp, Alarm Clock, or any built-in macOS sound. Picking one plays a preview.
 - **Always on Top** — pin button in the display corner, or Window ▸ Always on Top (⌥⌘T)
 
 ## Build
