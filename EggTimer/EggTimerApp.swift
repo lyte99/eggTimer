@@ -11,10 +11,9 @@ struct EggTimerApp: App {
             ContentView(model: model)
         }
         .windowResizability(.contentSize)
-        .windowLevel(floatOnTop ? .floating : .normal)
         .commands {
             CommandGroup(after: .windowArrangement) {
-                Toggle("Float on Top", isOn: $floatOnTop)
+                Toggle("Always on Top", isOn: $floatOnTop)
                     .keyboardShortcut("t", modifiers: [.command, .option])
             }
         }

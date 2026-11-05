@@ -2,10 +2,22 @@ import SwiftUI
 
 struct ContentView: View {
     let model: TimerModel
+    @AppStorage("floatOnTop") private var floatOnTop = false
 
     var body: some View {
         VStack(spacing: 16) {
             display
+                .overlay(alignment: .topTrailing) {
+                    Toggle(isOn: $floatOnTop) {
+                        Image(systemName: floatOnTop ? "pin.fill" : "pin")
+                            .foregroundStyle(floatOnTop ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
+                    }
+                    .toggleStyle(.button)
+                    .buttonStyle(.borderless)
+                    .help(floatOnTop ? "Always on top: on (⌥⌘T)" : "Always on top: off (⌥⌘T)")
+                    .accessibilityLabel("Always on Top")
+                    .padding(8)
+                }
             HStack(spacing: 10) {
                 Button("M", action: model.pressMinute)
                     .keyboardShortcut("m", modifiers: [])
@@ -31,6 +43,7 @@ struct ContentView: View {
         }
         .padding(20)
         .frame(width: 320)
+        .background(WindowLevelSetter(floating: floatOnTop))
     }
 
     private var display: some View {
