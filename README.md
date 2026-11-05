@@ -17,3 +17,11 @@ open build/Build/Products/Debug/EggTimer.app
 ```
 
 Run tests with `xcodebuild -scheme EggTimer -derivedDataPath build test`.
+
+## Icon
+
+The app icon is drawn in code. To regenerate the asset set after editing it:
+
+```bash
+swift Tools/make-icon.swift
+```
