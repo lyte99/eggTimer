@@ -44,7 +44,17 @@ M and S are ignored while the timer is running, like on the real thing.
 - Xcode 16 or later to build
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) only if you change `project.yml` (`brew install xcodegen`)
 
-## Install
+## Download
+
+Get **[EggTimer.zip](https://github.com/lyte99/eggTimer/releases/latest/download/EggTimer.zip)** from the [latest release](https://github.com/lyte99/eggTimer/releases/latest), unzip it, and drag **EggTimer.app** to Applications.
+
+The app isn't notarized by Apple, so macOS blocks it the first time you open it. To allow it:
+
+1. Open Egg Timer and click **Done** on the warning.
+2. Go to **System Settings ▸ Privacy & Security**, scroll down, and click **Open Anyway** next to Egg Timer.
+3. Confirm with your password. After that it opens normally.
+
+## Build from source
 
 Build a Release copy and copy it into Applications:
 
