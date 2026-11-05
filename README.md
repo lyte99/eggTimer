@@ -4,6 +4,10 @@
 
 <h1 align="center">Egg Timer</h1>
 
+<p align="center">
+  <a href="https://github.com/lyte99/eggTimer/actions/workflows/swiftlint.yml"><img src="https://github.com/lyte99/eggTimer/actions/workflows/swiftlint.yml/badge.svg" alt="SwiftLint"></a>
+</p>
+
 <p align="center">A tiny native macOS kitchen timer, modeled on the classic M / S / Start-Stop digital timer.</p>
 
 ---
@@ -78,6 +82,12 @@ Open `EggTimer.xcodeproj` in Xcode, or build and test from the command line:
 
 ```bash
 xcodebuild -scheme EggTimer -derivedDataPath build test
+```
+
+Lint with [SwiftLint](https://github.com/realm/SwiftLint) (`brew install swiftlint`). CI runs the same check on every push and pull request:
+
+```bash
+swiftlint lint --strict
 ```
 
 The Xcode project is generated from `project.yml`. After adding files or changing build settings there, run `xcodegen generate`.

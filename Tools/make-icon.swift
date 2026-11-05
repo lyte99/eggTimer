@@ -1,14 +1,15 @@
 // Renders the app icon (orange kitchen timer) and writes the AppIcon asset set.
 // Usage: swift Tools/make-icon.swift   (run from the repo root)
+// swiftlint:disable force_try
 import AppKit
 
 let size = 1024
 let outDir = "EggTimer/Assets.xcassets/AppIcon.appiconset"
 
-func color(_ hex: UInt32, _ a: CGFloat = 1) -> CGColor {
+func color(_ hex: UInt32, _ alpha: CGFloat = 1) -> CGColor {
     CGColor(red: CGFloat((hex >> 16) & 0xFF) / 255,
             green: CGFloat((hex >> 8) & 0xFF) / 255,
-            blue: CGFloat(hex & 0xFF) / 255, alpha: a)
+            blue: CGFloat(hex & 0xFF) / 255, alpha: alpha)
 }
 
 let space = CGColorSpace(name: CGColorSpace.sRGB)!
@@ -26,8 +27,8 @@ func fillGradient(_ path: CGPath, top: UInt32, bottom: UInt32, in rect: CGRect) 
     ctx.saveGState()
     ctx.addPath(path)
     ctx.clip()
-    let g = CGGradient(colorsSpace: space, colors: [color(top), color(bottom)] as CFArray, locations: [0, 1])!
-    ctx.drawLinearGradient(g, start: CGPoint(x: 0, y: rect.minY), end: CGPoint(x: 0, y: rect.maxY), options: [])
+    let gradient = CGGradient(colorsSpace: space, colors: [color(top), color(bottom)] as CFArray, locations: [0, 1])!
+    ctx.drawLinearGradient(gradient, start: CGPoint(x: 0, y: rect.minY), end: CGPoint(x: 0, y: rect.maxY), options: [])
     ctx.restoreGState()
 }
 
@@ -57,7 +58,8 @@ let segmentsFor: [Character: String] = [
     "5": "afgcd", "6": "afgedc", "7": "abc", "8": "abcdefg", "9": "abcdfg",
 ]
 
-func drawDigit(_ ch: Character, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat, t: CGFloat) {
+func drawDigit(_ digit: Character, in frame: CGRect, thickness t: CGFloat) {
+    let (x, y, w, h) = (frame.minX, frame.minY, frame.width, frame.height)
     let gap = t * 0.18
     let horizW = w - t - 2 * gap
     let vertH = h / 2 - t / 2 - 2 * gap
@@ -70,7 +72,7 @@ func drawDigit(_ ch: Character, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat, 
         "e": CGRect(x: x, y: y + h / 2 + gap, width: t, height: vertH),
         "c": CGRect(x: x + w - t, y: y + h / 2 + gap, width: t, height: vertH),
     ]
-    let lit = segmentsFor[ch] ?? ""
+    let lit = segmentsFor[digit] ?? ""
     for (name, r) in rects {
         ctx.addPath(rounded(r, t / 2))
         ctx.setFillColor(lit.contains(name) ? color(0x1F2B35) : color(0x1F2B35, 0.07))
@@ -79,10 +81,10 @@ func drawDigit(_ ch: Character, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat, 
 }
 
 // Big minutes, small seconds — like the real timer.
-drawDigit("0", x: 250, y: 255, w: 130, h: 250, t: 34)
-drawDigit("5", x: 400, y: 255, w: 130, h: 250, t: 34)
-drawDigit("0", x: 570, y: 345, w: 90, h: 160, t: 24)
-drawDigit("0", x: 680, y: 345, w: 90, h: 160, t: 24)
+drawDigit("0", in: CGRect(x: 250, y: 255, width: 130, height: 250), thickness: 34)
+drawDigit("5", in: CGRect(x: 400, y: 255, width: 130, height: 250), thickness: 34)
+drawDigit("0", in: CGRect(x: 570, y: 345, width: 90, height: 160), thickness: 24)
+drawDigit("0", in: CGRect(x: 680, y: 345, width: 90, height: 160), thickness: 24)
 
 // Buttons.
 func button(cx: CGFloat, cy: CGFloat, r: CGFloat) {
@@ -100,15 +102,15 @@ button(cx: 470, cy: 735, r: 64)
 button(cx: 715, cy: 735, r: 80)
 
 // Write PNGs.
-let master = ctx.makeImage()!
+let fullSize = ctx.makeImage()!
 try? FileManager.default.createDirectory(atPath: outDir, withIntermediateDirectories: true)
 
 func writePNG(_ px: Int, _ name: String) {
-    let c = CGContext(data: nil, width: px, height: px, bitsPerComponent: 8, bytesPerRow: 0,
+    let context = CGContext(data: nil, width: px, height: px, bitsPerComponent: 8, bytesPerRow: 0,
                       space: space, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
-    c.interpolationQuality = .high
-    c.draw(master, in: CGRect(x: 0, y: 0, width: px, height: px))
-    let rep = NSBitmapImageRep(cgImage: c.makeImage()!)
+    context.interpolationQuality = .high
+    context.draw(fullSize, in: CGRect(x: 0, y: 0, width: px, height: px))
+    let rep = NSBitmapImageRep(cgImage: context.makeImage()!)
     try! rep.representation(using: .png, properties: [:])!.write(to: URL(fileURLWithPath: "\(outDir)/\(name)"))
 }
 
@@ -126,3 +128,4 @@ try! json.write(to: URL(fileURLWithPath: "\(outDir)/Contents.json"))
 try! #"{"info":{"author":"xcode","version":1}}"#.write(
     toFile: "EggTimer/Assets.xcassets/Contents.json", atomically: true, encoding: .utf8)
 print("Wrote \(outDir)")
+// swiftlint:enable force_try

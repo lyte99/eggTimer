@@ -87,21 +87,21 @@ final class TimerModel {
     // MARK: Clock
 
     func tick() {
-        let t = now()
+        let date = now()
         switch phase {
         case .countingDown:
-            let remaining = anchor.timeIntervalSince(t)
+            let remaining = anchor.timeIntervalSince(date)
             if remaining <= 0 {
                 seconds = 0
                 phase = .alarming
                 flashOn = true
                 beep()
-                nextBeep = t.addingTimeInterval(1)
+                nextBeep = date.addingTimeInterval(1)
             } else {
                 seconds = Int(remaining.rounded(.up))
             }
         case .countingUp:
-            let elapsed = Int(t.timeIntervalSince(anchor).rounded(.down))
+            let elapsed = Int(date.timeIntervalSince(anchor).rounded(.down))
             if elapsed >= Self.maxSeconds {
                 seconds = Self.maxSeconds
                 phase = .stopped
@@ -110,11 +110,11 @@ final class TimerModel {
                 seconds = max(0, elapsed)
             }
         case .alarming:
-            if t >= nextBeep {
+            if date >= nextBeep {
                 beep()
                 nextBeep = nextBeep.addingTimeInterval(1)
             }
-            flashOn = Int(t.timeIntervalSinceReferenceDate * 2) % 2 == 0
+            flashOn = Int(date.timeIntervalSinceReferenceDate * 2) % 2 == 0
         case .stopped:
             break
         }

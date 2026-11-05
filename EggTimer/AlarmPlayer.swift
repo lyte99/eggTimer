@@ -90,16 +90,18 @@ final class AlarmPlayer {
         let fade = Int(Double(sampleRate) * 0.004)   // 4 ms ramps avoid clicks
         for note in notes {
             let count = Int(Double(sampleRate) * note.seconds)
-            for i in 0..<count {
+            for index in 0..<count {
                 guard note.hz > 0 else { samples.append(0); continue }
-                let ramp = min(1, Double(min(i, count - 1 - i)) / Double(max(fade, 1)))
-                let value = sin(2 * .pi * note.hz * Double(i) / Double(sampleRate)) * volume * ramp
+                let ramp = min(1, Double(min(index, count - 1 - index)) / Double(max(fade, 1)))
+                let value = sin(2 * .pi * note.hz * Double(index) / Double(sampleRate)) * volume * ramp
                 samples.append(Int16(value * Double(Int16.max)))
             }
         }
 
         var data = Data()
-        func append<T: FixedWidthInteger>(_ v: T) { withUnsafeBytes(of: v.littleEndian) { data.append(contentsOf: $0) } }
+        func append<T: FixedWidthInteger>(_ value: T) {
+            withUnsafeBytes(of: value.littleEndian) { data.append(contentsOf: $0) }
+        }
         let byteCount = samples.count * 2
         data.append(contentsOf: Array("RIFF".utf8)); append(UInt32(36 + byteCount))
         data.append(contentsOf: Array("WAVE".utf8))

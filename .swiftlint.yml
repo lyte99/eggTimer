@@ -1,0 +1,12 @@
+# SwiftLint config — run locally with `swiftlint lint --strict`.
+excluded:
+  - build
+  - EggTimer.xcodeproj
+
+identifier_name:
+  # Short names that are conventional for geometry and IDs.
+  excluded: [x, y, w, h, r, t, cx, cy, px, pt, id]
+
+trailing_comma:
+  # Multi-line literals in this project end with a comma.
+  mandatory_comma: true
