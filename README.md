@@ -90,6 +90,6 @@ swift Tools/make-icon.swift
 
 ## License
 
-Copyright 2026 andrewegelhof
+Copyright 2026 Andrew Egelhof
 
 Licensed under the [Apache License, Version 2.0](LICENSE).
