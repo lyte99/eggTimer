@@ -10,6 +10,10 @@
 
 Egg Timer is a single small window with a big `MM:SS` display and the same few buttons as the plastic timer on your fridge. Set a time, hit Start, and it beeps until you stop it.
 
+<p align="center">
+  <img src="docs/screenshot.png" width="432" alt="The Egg Timer window showing 00:00 with M, S, Clear and Start buttons">
+</p>
+
 ## Features
 
 - **Countdown or stopwatch.** Start from a set time to count down, or from 00:00 to count up (to 99:59).
